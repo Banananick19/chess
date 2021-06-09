@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Chess</string>
+    <string name="pawn_white">\u2659</string>
+    <string name="pawn_black">\u265F</string>
+</resources>
