@@ -13,10 +13,84 @@ public class Bishop extends Figure {
     }
 
     @Override
-    public Iterator getAvailablePositions(ChessBoard board) {
-        ArrayList availablePositions = new ArrayList<Position>();
+    public Iterator<Position> getAvailablePositions(ChessBoard board) {
+        ArrayList<Position> availablePositions = new ArrayList<>();
         Figure[][] field = board.getBoard();
-        // TODO: this shit
+        int x = 1;
+        int y = 1;
+        while (new Position(this.positionX -x, this.positionY +y).isValid()) {
+            if (field[this.positionX -x][this.positionY +y].isNull()) {
+                availablePositions.add(new Position(this.positionX -x, this.positionY +y));
+                y += 1;
+                x += 1;
+                continue;
+            }
+            if (field[this.positionX -x][this.positionY +y].getColor() == this.color) {
+                break;
+            }
+            if (field[this.positionX -x][this.positionY +y].getColor() != this.color) {
+                availablePositions.add(new Position(this.positionX -x, this.positionY +y));
+                break;
+            }
+        }
+
+        x = 1;
+        y = 1;
+
+        while (new Position(this.positionX +x, this.positionY +y).isValid()) {
+            if (field[this.positionX +x][this.positionY +y].isNull()) {
+                availablePositions.add(new Position(this.positionX +x, this.positionY +y));
+                y += 1;
+                x += 1;
+                continue;
+            }
+            if (field[this.positionX +x][this.positionY +y].getColor() == this.color) {
+                break;
+            }
+            if (field[this.positionX +x][this.positionY +y].getColor() != this.color) {
+                availablePositions.add(new Position(this.positionX +x, this.positionY +y));
+                break;
+            }
+        }
+
+        y = 1;
+        x = 1;
+
+        while (new Position(this.positionX +x, this.positionY -y).isValid()) {
+            if (field[this.positionX +x][this.positionY -y].isNull()) {
+                availablePositions.add(new Position(this.positionX +x, this.positionY -y));
+                x += 1;
+                y += 1;
+                continue;
+            }
+            if (field[this.positionX +x][this.positionY -y].getColor() == this.color) {
+                break;
+            }
+            if (field[this.positionX +x][this.positionY -y].getColor() != this.color) {
+                availablePositions.add(new Position(this.positionX +x, this.positionY -y));
+                break;
+            }
+        }
+
+
+        x = 1;
+        y = 1;
+
+        while (new Position(this.positionX -x, this.positionY -y).isValid()) {
+            if (field[this.positionX -x][this.positionY -y].isNull()) {
+                availablePositions.add(new Position(this.positionX -x, this.positionY -y));
+                x += 1;
+                y += 1;
+                continue;
+            }
+            if (field[this.positionX -x][this.positionY -y].getColor() == this.color) {
+                break;
+            }
+            if (field[this.positionX -x][this.positionY -y].getColor() != this.color) {
+                availablePositions.add(new Position(this.positionX -x, this.positionY -y));
+                break;
+            }
+        }
         return availablePositions.iterator();
     }
 }

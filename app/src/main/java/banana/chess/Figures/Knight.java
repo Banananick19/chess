@@ -16,7 +16,47 @@ public class Knight extends Figure {
     public Iterator getAvailablePositions(ChessBoard board) {
         ArrayList availablePositions = new ArrayList<Position>();
         Figure[][] field = board.getBoard();
-        // TODO: this shit
+        if (new Position(positionX -2, positionY +1).isValid()) {
+            if (field[positionX -2][positionY +1].getColor() != this.color) {
+                availablePositions.add(new Position(positionX -2, positionY +1));
+            }
+        }
+        if (new Position(positionX -2, positionY -1).isValid()) {
+            if (field[positionX -2][positionY -1].getColor() != this.color) {
+                availablePositions.add(new Position(positionX -2, positionY -1));
+            }
+        }
+        if (new Position(positionX -1, positionY +2).isValid()) {
+            if (field[positionX -1][positionY +2].getColor() != this.color) {
+                availablePositions.add(new Position(positionX -1, positionY +2));
+            }
+        }
+        if (new Position(positionX +1, positionY +2).isValid()) {
+            if (field[positionX +1][positionY +2].getColor() != this.color) {
+                availablePositions.add(new Position(positionX +1, positionY +2));
+            }
+        }
+        if (new Position(positionX +2, positionY +1).isValid()) {
+            if (field[positionX +2][positionY +1].getColor() != this.color) {
+                availablePositions.add(new Position(positionX +2, positionY +1));
+            }
+        }
+        if (new Position(positionX +2, positionY -1).isValid()) {
+            if (field[positionX +2][positionY -1].getColor() != this.color) {
+                availablePositions.add(new Position(positionX +2, positionY -1));
+            }
+        }
+        if (new Position(positionX +1, positionY -2).isValid()) {
+            if (field[positionX +1][positionY -2].getColor() != this.color) {
+                availablePositions.add(new Position(positionX +1, positionY -2));
+            }
+        }
+        if (new Position(positionX -1, positionY -2).isValid()) {
+            if (field[positionX -1][positionY -2].getColor() != this.color) {
+                availablePositions.add(new Position(positionX -1, positionY -2));
+            }
+        }
+
         return availablePositions.iterator();
     }
 }

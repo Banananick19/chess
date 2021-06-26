@@ -1,5 +1,12 @@
 package banana.chess;
 
+
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
+import java.util.Iterator;
+
 import banana.chess.Figures.Bishop;
 import banana.chess.Figures.Figure;
 import banana.chess.Figures.FigureColor;
@@ -7,14 +14,15 @@ import banana.chess.Figures.King;
 import banana.chess.Figures.Knight;
 import banana.chess.Figures.NullFigure;
 import banana.chess.Figures.Pawn;
+import banana.chess.Figures.Position;
 import banana.chess.Figures.Queen;
 import banana.chess.Figures.Rock;
 
 public class ChessBoard {
-    private boolean haveWhiteСastling = true;
-    private boolean haveBlackСastling = true;
+    private FigureColor colorForMove = FigureColor.WHITE;
     private Figure toggledFigure;
     private Figure[][] board;
+
 
     public ChessBoard() {
         board = new Figure[8][8];
@@ -35,7 +43,7 @@ public class ChessBoard {
 
         for (int x = 0; x < 8; x++) {
             for (int y = 2; y < 6; y++) {
-                board[x][y] = new NullFigure(x, y, FigureColor.BLACK); // почему у нулевой фигуры есть цвет? - я не знаю...
+                board[x][y] = new NullFigure(x, y, null);
             }
         }
         //white[snowBALLS]
@@ -45,23 +53,112 @@ public class ChessBoard {
             }
         }
         for (int x = 1; x < 7; x++) {
-            board[x][7] = new NullFigure(x, 7, FigureColor.WHITE);
+            board[x][7] = new NullFigure(x, 7, null);
         }
         board[7][7] = new Rock(7, 7, FigureColor.WHITE);
-        board[0][7] = new Rock(7, 7, FigureColor.WHITE);
+        board[0][7] = new Rock(0, 7, FigureColor.WHITE);
         board[6][7] = new Knight(6, 7, FigureColor.WHITE);
-        board[1][7] = new Knight(6, 7, FigureColor.WHITE);
-        board[5][7] = new Bishop(6, 7, FigureColor.WHITE);
-        board[2][7] = new Bishop(6, 7, FigureColor.WHITE);
-        board[4][7] = new King(6, 7, FigureColor.WHITE);
-        board[3][7] = new Queen(6, 7, FigureColor.WHITE);
+        board[1][7] = new Knight(1, 7, FigureColor.WHITE);
+        board[5][7] = new Bishop(5, 7, FigureColor.WHITE);
+        board[2][7] = new Bishop(2, 7, FigureColor.WHITE);
+        board[4][7] = new King(4, 7, FigureColor.WHITE);
+        board[3][7] = new Queen(3, 7, FigureColor.WHITE);
     }
 
     public Figure getFigure(int x, int y) {
         return board[x][y];
     }
 
+    public Figure setFigure(int x, int y, Figure figure) {
+        figure.setPositionY(y);
+        figure.setPositionX(x);
+        return board[x][y] = figure;
+    }
+
+    public FigureColor getColorForMove() {
+        return colorForMove;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void attack(int x1, int y1, int x2, int y2) {
+        if (board[x1][y1].isNull()) {
+            return;
+        }
+        Figure figureAttack = board[x1][y1];
+        if (figureAttack.getColor() != this.colorForMove) {
+            return;
+        }
+        Figure figureVictim = board[x2][y2];
+        Iterator<Position> iter = figureAttack.getAvailablePositions(this);
+        while (iter.hasNext()) {
+                Position nextPosition = iter.next();
+                if (nextPosition.getPositionX() == figureVictim.getPositionX() & nextPosition.getPositionY() == figureVictim.getPositionY()) {
+                    if (nextPosition.getState() != null) {
+                        nextPosition.getState().doQniqueMotion();
+                        break;
+                    }
+                    board[x2][y2] = figureAttack;
+                    board[x1][y1] = new NullFigure(x1, y1, null);
+                    figureAttack.setPositionX(x2);
+                    figureAttack.setPositionY(y2);
+                    figureAttack.setHasMotion(true);
+                    reverseColorForMove();
+                    break;
+                }
+
+        }
+    }
+
+    private void reverseColorForMove() {
+        if (this.colorForMove == FigureColor.BLACK) this.colorForMove = FigureColor.WHITE;
+        else this.colorForMove = FigureColor.BLACK;
+    }
+
+    public String toString() {
+        String string = "";
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                string += board[j][i].getUnicode() + " ";
+            }
+            string += "\n";
+        }
+        return string;
+    }
+
     public Figure[][] getBoard() {
         return board;
     }
+
+    public boolean isHaveWhiteShortСastling() {
+        return haveWhiteShortСastling;
+    }
+
+    public void setHaveWhiteShortСastling(boolean haveWhiteShortСastling) {
+        this.haveWhiteShortСastling = haveWhiteShortСastling;
+    }
+
+    public void setHaveWhiteLongСastling(boolean haveWhiteLongСastling) {
+        this.haveWhiteLongСastling = haveWhiteLongСastling;
+    }
+
+    public void setHaveBlackShortСastling(boolean haveBlackShortСastling) {
+        this.haveBlackShortСastling = haveBlackShortСastling;
+    }
+
+    public void setHaveBlackLongСastling(boolean haveBlackLongСastling) {
+        this.haveBlackLongСastling = haveBlackLongСastling;
+    }
+
+    public boolean isHaveWhiteLongСastling() {
+        return haveWhiteLongСastling;
+    }
+
+    public boolean isHaveBlackShortСastling() {
+        return haveBlackShortСastling;
+    }
+
+    public boolean isHaveBlackLongСastling() {
+        return haveBlackLongСastling;
+    }
+
 }

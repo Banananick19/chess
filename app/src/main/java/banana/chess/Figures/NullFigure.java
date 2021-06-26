@@ -23,7 +23,7 @@ public class NullFigure extends Figure {
     }
 
     @Override
-    public Iterator getAvailablePositions(ChessBoard board) {
+    public Iterator<Position> getAvailablePositions(ChessBoard board) {
         return null;
     }
 }

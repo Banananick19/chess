@@ -11,10 +11,33 @@ abstract public class Figure {
     protected String blackUnicode;
     protected String whiteUnicode;
     protected boolean isNull = false;
+    protected boolean hasMotion = false;
 
-    public Figure(int x, int y, FigureColor color) {
-        this.positionX = x;
-        this.positionY = y;
+    public int getPositionX() {
+        return positionX;
+    }
+
+    public int getPositionY() {
+        return positionY;
+    }
+
+    public FigureColor getColor() {
+        return color;
+    }
+
+
+    public boolean isHasMotion() {
+        return hasMotion;
+    }
+
+
+    public void setHasMotion(boolean hasMotion) {
+        this.hasMotion = hasMotion;
+    }
+
+    public Figure(int positionX, int positionY, FigureColor color) {
+        this.positionX = positionX;
+        this.positionY = positionY;
         this.color = color;
     }
 
@@ -30,9 +53,13 @@ abstract public class Figure {
         }
     }
 
-    public String getName() {
-        return this.getClass().getName();
+    public void setPositionX(int positionX) {
+        this.positionX = positionX;
     }
 
-    abstract public Iterator getAvailablePositions(ChessBoard board);
+    public void setPositionY(int positionY) {
+        this.positionY = positionY;
+    }
+
+    abstract public Iterator<Position> getAvailablePositions(ChessBoard board);
 }
