@@ -20,6 +20,16 @@ import banana.chess.Figures.Rock;
 
 public class ChessBoard {
     private FigureColor colorForMove = FigureColor.WHITE;
+
+    public Position getPositionAisle() {
+        return positionAisle;
+    }
+
+    public void setPositionAisle(Position positionAisle) {
+        this.positionAisle = positionAisle;
+    }
+
+    private Position positionAisle;
     private Figure toggledFigure;
     private Figure[][] board;
 
@@ -90,11 +100,16 @@ public class ChessBoard {
         }
         Figure figureVictim = board[x2][y2];
         Iterator<Position> iter = figureAttack.getAvailablePositions(this);
+        boolean positionHas = false;
+        if (this.positionAisle != null) {
+            positionHas = true;
+        }
         while (iter.hasNext()) {
                 Position nextPosition = iter.next();
                 if (nextPosition.getPositionX() == figureVictim.getPositionX() & nextPosition.getPositionY() == figureVictim.getPositionY()) {
                     if (nextPosition.getState() != null) {
                         nextPosition.getState().doQniqueMotion();
+                        figureAttack.setHasMotion(true);
                         break;
                     }
                     board[x2][y2] = figureAttack;
@@ -102,11 +117,13 @@ public class ChessBoard {
                     figureAttack.setPositionX(x2);
                     figureAttack.setPositionY(y2);
                     figureAttack.setHasMotion(true);
-                    reverseColorForMove();
                     break;
                 }
-
         }
+        if (this.positionAisle!=null & positionHas) {
+            this.positionAisle = null;
+        }
+        reverseColorForMove();
     }
 
     private void reverseColorForMove() {
@@ -127,38 +144,6 @@ public class ChessBoard {
 
     public Figure[][] getBoard() {
         return board;
-    }
-
-    public boolean isHaveWhiteShortСastling() {
-        return haveWhiteShortСastling;
-    }
-
-    public void setHaveWhiteShortСastling(boolean haveWhiteShortСastling) {
-        this.haveWhiteShortСastling = haveWhiteShortСastling;
-    }
-
-    public void setHaveWhiteLongСastling(boolean haveWhiteLongСastling) {
-        this.haveWhiteLongСastling = haveWhiteLongСastling;
-    }
-
-    public void setHaveBlackShortСastling(boolean haveBlackShortСastling) {
-        this.haveBlackShortСastling = haveBlackShortСastling;
-    }
-
-    public void setHaveBlackLongСastling(boolean haveBlackLongСastling) {
-        this.haveBlackLongСastling = haveBlackLongСastling;
-    }
-
-    public boolean isHaveWhiteLongСastling() {
-        return haveWhiteLongСastling;
-    }
-
-    public boolean isHaveBlackShortСastling() {
-        return haveBlackShortСastling;
-    }
-
-    public boolean isHaveBlackLongСastling() {
-        return haveBlackLongСastling;
     }
 
 }

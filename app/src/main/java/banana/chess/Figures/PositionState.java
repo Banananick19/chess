@@ -4,11 +4,11 @@ import banana.chess.ChessBoard;
 
 public class PositionState {
     protected ChessBoard board;
-    protected FigureColor color;
+    protected Figure figure;
 
-    public PositionState(ChessBoard board, FigureColor color) {
+    public PositionState(ChessBoard board, Figure figure    ) {
         this.board = board;
-        this.color = color;
+        this.figure = figure;
     }
 
     public void doQniqueMotion() {

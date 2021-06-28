@@ -32,14 +32,14 @@ public class King extends Figure {
                 leftClear = board.getFigure(x, 0).isNull();
             }
             if (!board.getFigure(0, 0).isHasMotion() & leftClear) {
-                availablePositions.add(new Position(2, 0, new LongСastlingPositionState(board, this.color)));
+                availablePositions.add(new Position(2, 0, new LongСastlingPositionState(board, this)));
             }
             boolean rightClear = true;
             for (int x = 5; x<=6; x++) {
                 rightClear = board.getFigure(x, 0).isNull();
             }
             if (!board.getFigure(7, 0).isHasMotion() & rightClear) {
-                availablePositions.add(new Position(6, 0, new ShortСastlingPositionState(board, this.color)));
+                availablePositions.add(new Position(6, 0, new ShortСastlingPositionState(board, this)));
             }
         }
         if (this.color == FigureColor.WHITE) {
@@ -48,14 +48,14 @@ public class King extends Figure {
                 leftClear = board.getFigure(x, 7).isNull();
             }
             if (!board.getFigure(0, 7).isHasMotion() & leftClear) {
-                availablePositions.add(new Position(2, 7, new LongСastlingPositionState(board, this.color)));
+                availablePositions.add(new Position(2, 7, new LongСastlingPositionState(board, this)));
             }
             boolean rightClear = true;
             for (int x = 5; x<=6; x++) {
                 rightClear = board.getFigure(x, 7).isNull();
             }
             if (!board.getFigure(7, 7).isHasMotion() & rightClear) {
-                availablePositions.add(new Position(6, 7, new ShortСastlingPositionState(board, this.color)));
+                availablePositions.add(new Position(6, 7, new ShortСastlingPositionState(board, this)));
             }
         }
         return availablePositions.iterator();

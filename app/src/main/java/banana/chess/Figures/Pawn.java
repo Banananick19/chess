@@ -35,7 +35,7 @@ public class Pawn extends Figure {
             }
             if (!isHasMotion()) {
                 if (new Position(positionX, positionY +2).isValid() & (field[positionX][positionY +1].isNull())) {
-                    availablePositions.add(new Position(positionX, positionY +2));
+                    availablePositions.add(new Position(positionX, positionY +2, new DoublePawnMotionPositionState(board, this)));
                 }
             }
         } else {
@@ -56,8 +56,14 @@ public class Pawn extends Figure {
             }
             if (!isHasMotion()) {
                 if (new Position(positionX, positionY -2).isValid() & field[positionX][positionY -1].isNull()) {
-                    availablePositions.add(new Position(positionX, positionY -2));
+                    availablePositions.add(new Position(positionX, positionY -2, new DoublePawnMotionPositionState(board, this)));
                 }
+            }
+        }
+        if (board.getPositionAisle()!=null) {
+            Iterator<Position> iter = availablePositions.iterator();
+            if (((board.getPositionAisle().getPositionX()-1 == this.positionX) | (board.getPositionAisle().getPositionX()+1 == this.positionX)) & ((board.getPositionAisle().getPositionY()-1 == this.positionY) | (board.getPositionAisle().getPositionY()+1 == this.positionY))) {
+                availablePositions.add(new Position(board.getPositionAisle().getPositionX(), board.getPositionAisle().getPositionY(), new TakingOnTheAislePositionState(board, this)));
             }
         }
 
