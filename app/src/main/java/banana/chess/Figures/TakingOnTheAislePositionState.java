@@ -19,10 +19,10 @@ public class TakingOnTheAislePositionState extends PositionState {
         board.setFigure(this.figure.getPositionX(), this.figure.getPositionY(), new NullFigure(0, 0, null));
         board.setFigure(posX, posY, this.figure);
         if (this.figure.getColor() == FigureColor.BLACK) {
-            board.setFigure(posX, posY+1, new NullFigure(posX, posY+1, null));
+            board.setFigure(posX, posY-1, new NullFigure(posX, posY+1, null));
         }
         if (this.figure.getColor() == FigureColor.WHITE) {
-            board.setFigure(posX, posY+1, new NullFigure(posX, posY-1, null));
+            board.setFigure(posX, posY+1, new NullFigure(posX, posY+1, null));
         }
     }
 }

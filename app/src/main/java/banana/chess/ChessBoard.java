@@ -6,6 +6,7 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 
 import java.util.Iterator;
+import java.util.ArrayList;
 
 import banana.chess.Figures.Bishop;
 import banana.chess.Figures.Figure;
@@ -20,6 +21,7 @@ import banana.chess.Figures.Rock;
 
 public class ChessBoard {
     private FigureColor colorForMove = FigureColor.WHITE;
+
 
     public Position getPositionAisle() {
         return positionAisle;
